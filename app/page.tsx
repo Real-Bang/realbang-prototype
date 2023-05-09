@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import { ArrowLeftIcon, ArrowsPointingOutIcon, BackwardIcon, PhotoIcon, RectangleGroupIcon } from "@heroicons/react/24/outline"
+import { ArrowLeftIcon, ArrowsPointingOutIcon, BackwardIcon, BuildingOfficeIcon, PhotoIcon, RectangleGroupIcon } from "@heroicons/react/24/outline"
 import { ChangeEvent, ReactNode, useState } from 'react'
 
 interface PictureSelectOption {
@@ -52,9 +52,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex-col items-center justify-between">
-      <div className="relative z-10 w-full max-w-5xl aspect-square items-center justify-between text-sm">
+      <div className="relative w-full aspect-square items-center justify-between text-sm">
         {SELECT_VIEW_MAP[image]}
-        <div className="absolute w-full px-4 top-0 h-16 flex flex-row items-center justify-between">
+        <div className="sticky w-full px-4 top-0 h-16 flex flex-row items-center justify-between">
           <div><ArrowLeftIcon className="w-6" /></div>
           <div className="relative text-md h-fit w-32">
             {SELECT_ICON_MAP[image]}
@@ -96,12 +96,12 @@ export default function Home() {
             <p className='text-lg font-bold'>분리형 원룸</p>
           </div>
           <div className="flex flex-row gap-3">
-            <ArrowsPointingOutIcon className='w-6' />
-            <p className='text-lg font-bold'>전용 26.45m<sup>2</sup></p>
+            <BuildingOfficeIcon className='w-6' />
+            <p className='text-lg'>4층/5층</p>
           </div>
         </div>
       </div>
-      <div className="absolute bottom-0 w-full pb-4">
+      <div className="sticky bottom-0 w-full pb-4 bg-white">
         <div className="divider divider-vertical"></div>
         <div className='flex flex-row mx-4 justify-between'>
           <div>
