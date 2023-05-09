@@ -17,6 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="application-name" content="RealBang" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#ffffff" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body className={myFont.className}>{children}</body>
     </html>
   )
