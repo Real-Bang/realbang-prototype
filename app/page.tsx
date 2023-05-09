@@ -54,19 +54,19 @@ export default function Home() {
     <main className="min-h-screen flex-col items-center justify-between">
       <div className="relative w-full aspect-square items-center justify-between text-sm">
         {SELECT_VIEW_MAP[image]}
-        <div className="sticky w-full px-4 top-0 h-16 flex flex-row items-center justify-between">
-          <div><ArrowLeftIcon className="w-6" /></div>
-          <div className="relative text-md h-fit w-32">
-            {SELECT_ICON_MAP[image]}
-            <select className='select select-bordered select-ghost select-sm bg-transparent pl-8 w-full'
-              onChange={onChangeSelect} value={image}>
-              {
-                pictureSelectOptions.map(op => (<option key={op.value} value={op.value}>{op.text}</option>))
-              }
-            </select>
-          </div>
-        </div>
       </div >
+      <div className="fixed w-full px-4 top-0 h-16 flex flex-row items-center justify-between">
+        <div><ArrowLeftIcon className="w-6" /></div>
+        <div className="relative text-md h-fit w-32">
+          {SELECT_ICON_MAP[image]}
+          <select className='select select-bordered select-ghost select-sm bg-transparent pl-8 w-full'
+            onChange={onChangeSelect} value={image}>
+            {
+              pictureSelectOptions.map(op => (<option key={op.value} value={op.value}>{op.text}</option>))
+            }
+          </select>
+        </div>
+      </div>
       <div className="flex flex-col mx-4 py-4">
         <div className="flex flex-col gap-4 pr-4">
           <div className="flex flex-row justify-between">
@@ -101,8 +101,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="sticky bottom-0 w-full pb-4 bg-white">
-        <div className="divider divider-vertical"></div>
+      <div className="sticky bottom-0 w-full py-4 bg-white border-t-gray-300 border-t-[1px] border-solid">
         <div className='flex flex-row mx-4 justify-between'>
           <div>
             <p className="text-lg font-bold">월세 1,000/45</p>
