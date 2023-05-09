@@ -1,6 +1,6 @@
 "use client"
+import { ArrowLeftIcon, ArrowsPointingOutIcon, BuildingOfficeIcon, PhotoIcon, RectangleGroupIcon } from "@heroicons/react/24/outline"
 import Image from 'next/image'
-import { ArrowLeftIcon, ArrowsPointingOutIcon, BackwardIcon, BuildingOfficeIcon, PhotoIcon, RectangleGroupIcon } from "@heroicons/react/24/outline"
 import { ChangeEvent, ReactNode, useState } from 'react'
 
 interface PictureSelectOption {
@@ -52,14 +52,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex-col items-center justify-between">
-      <div className="relative w-full aspect-square items-center justify-between text-sm">
-        {SELECT_VIEW_MAP[image]}
-      </div >
-      <div className="fixed w-full px-4 top-0 h-16 flex flex-row items-center justify-between">
-        <div><ArrowLeftIcon className="w-6" /></div>
-        <div className="relative text-md h-fit w-32">
+      <div className="fixed z-10 w-full px-4 top-0 h-16 flex flex-row items-center justify-between bg-slate-600/40">
+        <div><ArrowLeftIcon className="w-6 " /></div>
+        <div className="relative text-md h-fit w-32 ">
           {SELECT_ICON_MAP[image]}
-          <select className='select select-bordered select-ghost select-sm bg-transparent pl-8 w-full'
+          <select className='select select-bordered select-ghost select-sm border-gray-300 bg-transparent pl-8 w-full'
             onChange={onChangeSelect} value={image}>
             {
               pictureSelectOptions.map(op => (<option key={op.value} value={op.value}>{op.text}</option>))
@@ -67,6 +64,9 @@ export default function Home() {
           </select>
         </div>
       </div>
+      <div className="relative w-full aspect-square items-center justify-between text-sm">
+        {SELECT_VIEW_MAP[image]}
+      </div >
       <div className="flex flex-col mx-4 py-4">
         <div className="flex flex-col gap-4 pr-4">
           <div className="flex flex-row justify-between">
