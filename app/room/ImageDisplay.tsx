@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { ChangeEvent, ReactNode, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface PictureSelectOption {
   text: string;
@@ -92,7 +93,9 @@ export default function ImageDisplay() {
     <>
       <div className="fixed z-10 w-full px-4 top-0 h-16 flex flex-row items-center justify-between bg-slate-600/40">
         <div>
-          <ArrowLeftIcon className="w-6 " />
+          <Link href="/">
+            <ArrowLeftIcon className="w-6 " />
+          </Link>
         </div>
         <div className="relative text-md h-fit w-32 ">
           {SELECT_ICON_MAP[image]}
