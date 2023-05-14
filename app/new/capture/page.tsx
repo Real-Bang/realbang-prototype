@@ -8,7 +8,9 @@ export default function CapturePage() {
   const { setup } = useCapture();
   const [stream] = useAtom(captureStreamAtom);
   const videoRef = useRef<HTMLVideoElement>(null);
-  setup();
+  useEffect(() => {
+    setup();
+  }, [setup]);
 
   const onClickButton = async () => {
     if (videoRef.current) {
