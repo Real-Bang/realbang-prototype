@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
+import Providers from "./providers";
 
 const Pretandard = localFont({
   src: "./assets/fonts/Pretandard/woff2/PretendardVariable.woff2",
@@ -22,7 +23,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={Pretandard.className}>{children}</body>
+      <body className={Pretandard.className}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

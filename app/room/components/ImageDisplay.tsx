@@ -8,6 +8,8 @@ import {
 import { ChangeEvent, ReactNode, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useAtomValue } from "jotai";
+import { capturedImagesAtom } from "@/app/new/capture/capture-video";
 
 interface PictureSelectOption {
   text: string;
@@ -35,7 +37,7 @@ const pictureSelectOptions: PictureSelectOption[] = [
 const SELECT_VIEW_MAP: Record<string, ReactNode> = {
   picture: (
     <Image
-      src="/picture.jpg"
+      src="/room-example/picture.jpg"
       fill
       className="object-cover object-center"
       sizes="100%"
@@ -44,7 +46,7 @@ const SELECT_VIEW_MAP: Record<string, ReactNode> = {
   ),
   "floor-plan": (
     <Image
-      src="/floor-plan.png"
+      src="/room-example/floor-plan.png"
       fill
       className="object-cover object-center"
       sizes="100%"
@@ -53,7 +55,7 @@ const SELECT_VIEW_MAP: Record<string, ReactNode> = {
   ),
   panorama: (
     <video
-      src="/panorama.webm"
+      src="/room-example/panorama.webm"
       autoPlay
       loop
       muted
@@ -62,7 +64,7 @@ const SELECT_VIEW_MAP: Record<string, ReactNode> = {
   ),
   "3d": (
     <Image
-      src="/3d.gif"
+      src="/room-example/3d.gif"
       fill
       className="object-cover object-center"
       sizes="100%"
@@ -83,10 +85,15 @@ const SELECT_ICON_MAP: Record<string, ReactNode> = {
 };
 
 export default function ImageDisplay() {
-  const [image, setImage] = useState("picture");
+  const [imageKey, setImageKey] = useState("picture");
+  const capturedImages = useAtomValue(capturedImagesAtom);
 
   const onChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    setImage(e.target.value);
+    setImageKey(e.target.value);
+  };
+
+  const isImageCaptured = () => {
+    return capturedImages.length > 0;
   };
 
   return (
@@ -94,26 +101,41 @@ export default function ImageDisplay() {
       <div className="fixed z-10 w-full px-4 top-0 h-16 flex flex-row items-center justify-between bg-slate-600/40">
         <div>
           <Link href="/">
-            <ArrowLeftIcon className="w-6 " />
+            <ArrowLeftIcon className="w-6" />
           </Link>
         </div>
-        <div className="relative text-md h-fit w-32 ">
-          {SELECT_ICON_MAP[image]}
-          <select
-            className="select select-bordered select-ghost select-sm border-gray-300 bg-transparent pl-8 w-full"
-            onChange={onChangeSelect}
-            value={image}
-          >
-            {pictureSelectOptions.map((op) => (
-              <option key={op.value} value={op.value}>
-                {op.text}
-              </option>
-            ))}
-          </select>
+        <div className="relative text-md h-fit w-32">
+          {isImageCaptured() ? (
+            <>
+              {SELECT_ICON_MAP[imageKey]}
+              <select
+                className="select select-bordered select-ghost select-sm border-gray-300 bg-transparent pl-8 w-full"
+                onChange={onChangeSelect}
+                value={imageKey}
+              >
+                {pictureSelectOptions.map((op) => (
+                  <option key={op.value} value={op.value}>
+                    {op.text}
+                  </option>
+                ))}
+              </select>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
-      <div className="relative w-full aspect-square items-center justify-between text-sm">
-        {SELECT_VIEW_MAP[image]}
+      <div className="relative w-full aspect-square text-sm">
+        {isImageCaptured() ? (
+          <>{SELECT_VIEW_MAP[imageKey]}</>
+        ) : (
+          <div className="h-full flex flex-col gap-8 items-center justify-center">
+            <span>등록된 사진이나 스캔이 없습니다</span>
+            <button className="btn btn-secondary">
+              <Link href="/new/capture">스캔하러 가기</Link>
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

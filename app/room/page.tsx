@@ -3,8 +3,8 @@ import {
   BuildingOfficeIcon,
   RectangleGroupIcon,
 } from "@heroicons/react/24/outline";
-import ImageDisplay from "./ImageDisplay";
-import Footer from "./Footer";
+import ImageDisplay from "./components/ImageDisplay";
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
