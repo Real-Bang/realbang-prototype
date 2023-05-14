@@ -1,5 +1,5 @@
 "use client";
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useAtomValue } from "jotai";
 
 export const captureStreamAtom = atom<MediaStream | null>(null);
 export const capturedImagesAtom = atom<Blob[]>([]);
@@ -10,17 +10,30 @@ export const videoTracksAtom = atom((get) =>
 export function useCapture() {
   const [captureStream, setCaptureStream] = useAtom(captureStreamAtom);
   const [capturedImages, setCapturedImages] = useAtom(capturedImagesAtom);
+  const videoTracks = useAtomValue(videoTracksAtom);
 
   const setup = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: false,
-      video: true,
-    });
-    setCaptureStream(stream);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          facingMode: { exact: "environment" },
+        },
+      });
+      setCaptureStream(stream);
+    } catch (e) {
+      if (e instanceof OverconstrainedError) {
+        console.error("There's no camera facing environment.");
+      }
+    }
   };
 
-  const capture = () => {
-    setCapturedImages([...capturedImages]);
+  const capture = async () => {
+    if (videoTracks) {
+      const imageCapturer = new ImageCapture(videoTracks[0]);
+      const photo = await imageCapturer.takePhoto();
+      setCapturedImages([...capturedImages, photo]);
+    }
   };
 
   const images = () => {
