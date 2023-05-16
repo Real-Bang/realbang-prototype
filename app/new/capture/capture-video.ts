@@ -46,7 +46,6 @@ export function useCapture() {
   };
 
   const captureVideoStart = async () => {
-    debugger;
     if (captureStream && videoTracks.length > 0) {
       const outputStream = new MediaStream();
       outputStream.addTrack(videoTracks[0]);

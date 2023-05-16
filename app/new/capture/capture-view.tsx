@@ -1,10 +1,11 @@
 "use client";
 
-import { StopIcon } from "@heroicons/react/24/outline";
+import { ChevronDoubleRightIcon, StopIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useCapture } from "./capture-video";
+import SmartphoneIcon from "@/app/assets/icons/material/Smartphone.svg";
 
 interface CaptureViewProps {
   onClose: () => void;
@@ -46,15 +47,26 @@ export default function CaptureView({ onClose }: CaptureViewProps) {
     <div className="z-50 fixed top-0 left-0 w-screen h-screen flex flex-col bg-black">
       <video ref={videoRef} />
       {isCapturing ? (
-        <button
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 btn btn-lg btn-circle bg-white"
-          onClick={onRecordEnd}
-        >
-          <StopIcon className="w-6" />
-        </button>
+        <>
+          <div className="fixed w-screen h-screen flex flex-col items-center justify-center gap-4">
+            <div className="flex flex-row items-center justify-center">
+              <SmartphoneIcon className="text-yellow-200 h-40 w-40" />
+              <ChevronDoubleRightIcon className="w-8 text-yellow-200 -ml-6" />
+            </div>
+            <span className="text-yellow-400">
+              주위를 둘러보며 스캔해주세요
+            </span>
+          </div>
+          <button
+            className="fixed bottom-8 left-1/2 animation-none -translate-x-1/2 btn btn-lg btn-circle bg-white"
+            onClick={onRecordEnd}
+          >
+            <StopIcon className="w-6" />
+          </button>
+        </>
       ) : (
         <button
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 btn btn-lg btn-circle bg-white"
+          className="fixed bottom-8 left-1/2 animation-none -translate-x-1/2 btn btn-lg btn-circle bg-white"
           onClick={onRecordStart}
         >
           <div className="rounded-full w-6 h-6 bg-red-600"></div>
