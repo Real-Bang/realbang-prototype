@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAtomValue } from "jotai";
 import { capturedImagesAtom } from "@/app/new/capture/capture-video";
+import CaptureView from "@/app/new/capture/capture-view";
 
 interface PictureSelectOption {
   text: string;
@@ -88,6 +89,8 @@ export default function ImageDisplay() {
   const [imageKey, setImageKey] = useState("picture");
   const capturedImages = useAtomValue(capturedImagesAtom);
 
+  const [isCaptureViewOpen, setIsCaptureViewOpen] = useState(false);
+
   const onChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     setImageKey(e.target.value);
   };
@@ -105,7 +108,7 @@ export default function ImageDisplay() {
           </Link>
         </div>
         <div className="relative text-md h-fit w-32">
-          {isImageCaptured() ? (
+          {isImageCaptured() && (
             <>
               {SELECT_ICON_MAP[imageKey]}
               <select
@@ -120,8 +123,6 @@ export default function ImageDisplay() {
                 ))}
               </select>
             </>
-          ) : (
-            <></>
           )}
         </div>
       </div>
@@ -131,12 +132,22 @@ export default function ImageDisplay() {
         ) : (
           <div className="h-full flex flex-col gap-8 items-center justify-center">
             <span>등록된 사진이나 스캔이 없습니다</span>
-            <button className="btn btn-secondary">
-              <Link href="/new/capture">스캔하러 가기</Link>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setIsCaptureViewOpen(true)}
+            >
+              스캔하러 가기
             </button>
           </div>
         )}
       </div>
+      {isCaptureViewOpen && (
+        <CaptureView
+          onClose={() => {
+            setIsCaptureViewOpen(false);
+          }}
+        />
+      )}
     </>
   );
 }
