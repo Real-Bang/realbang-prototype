@@ -50,10 +50,10 @@ export default function CaptureView({ onClose }: CaptureViewProps) {
         <>
           <div className="fixed w-screen h-screen flex flex-col items-center justify-center gap-4">
             <div className="flex flex-row items-center justify-center">
-              <SmartphoneIcon className="text-yellow-200 h-40 w-40" />
-              <ChevronDoubleRightIcon className="w-8 text-yellow-200 -ml-6" />
+              <SmartphoneIcon className="text-yellow-400 h-40 w-40" />
+              <ChevronDoubleRightIcon className="w-8 text-yellow-400 -ml-6" />
             </div>
-            <span className="text-yellow-400">
+            <span className="text-yellow-500 text-bold">
               주위를 둘러보며 스캔해주세요
             </span>
           </div>
