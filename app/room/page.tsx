@@ -1,118 +1,15 @@
-"use client";
 import {
-  ArrowLeftIcon,
   ArrowsPointingOutIcon,
   BuildingOfficeIcon,
-  PhotoIcon,
   RectangleGroupIcon,
 } from "@heroicons/react/24/outline";
-import Image from "next/image";
-import { ChangeEvent, ReactNode, useState } from "react";
-
-interface PictureSelectOption {
-  text: string;
-  value: string;
-}
-const pictureSelectOptions: PictureSelectOption[] = [
-  {
-    text: "사진",
-    value: "picture",
-  },
-  {
-    text: "평면도",
-    value: "floor-plan",
-  },
-  {
-    text: "파노라마",
-    value: "panorama",
-  },
-  {
-    text: "3D",
-    value: "3d",
-  },
-];
-
-const SELECT_VIEW_MAP: Record<string, ReactNode> = {
-  picture: (
-    <Image
-      src="/picture.jpg"
-      fill
-      className="object-cover object-center"
-      sizes="100%"
-      alt="Picture of the room"
-    />
-  ),
-  "floor-plan": (
-    <Image
-      src="/floor-plan.png"
-      fill
-      className="object-cover object-center"
-      sizes="100%"
-      alt="Floor Plan of the room"
-    />
-  ),
-  panorama: (
-    <video
-      src="/panorama.webm"
-      autoPlay
-      loop
-      muted
-      className="object-cover object-center h-full"
-    ></video>
-  ),
-  "3d": (
-    <Image
-      src="/3d.gif"
-      fill
-      className="object-cover object-center"
-      sizes="100%"
-      alt="Floor Plan of the room"
-    />
-  ),
-};
-const SELECT_ICON_MAP: Record<string, ReactNode> = {
-  picture: (
-    <PhotoIcon className="pl-2 w-6 h-full absolute place-content-center" />
-  ),
-  "floor-plan": (
-    <RectangleGroupIcon className="pl-2 w-6 h-full absolute place-content-center" />
-  ),
-  panorama: (
-    <PhotoIcon className="pl-2 w-6 h-full absolute place-content-center" />
-  ),
-};
+import ImageDisplay from "./components/ImageDisplay";
+import Footer from "./components/Footer";
 
 export default function Home() {
-  const [image, setImage] = useState("picture");
-
-  const onChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    setImage(e.target.value);
-  };
-
   return (
     <main className="min-h-screen flex-col items-center justify-between">
-      <div className="fixed z-10 w-full px-4 top-0 h-16 flex flex-row items-center justify-between bg-slate-600/40">
-        <div>
-          <ArrowLeftIcon className="w-6 " />
-        </div>
-        <div className="relative text-md h-fit w-32 ">
-          {SELECT_ICON_MAP[image]}
-          <select
-            className="select select-bordered select-ghost select-sm border-gray-300 bg-transparent pl-8 w-full"
-            onChange={onChangeSelect}
-            value={image}
-          >
-            {pictureSelectOptions.map((op) => (
-              <option key={op.value} value={op.value}>
-                {op.text}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-      <div className="relative w-full aspect-square items-center justify-between text-sm">
-        {SELECT_VIEW_MAP[image]}
-      </div>
+      <ImageDisplay />
       <div className="flex flex-col mx-4 py-4">
         <div className="flex flex-col gap-4 pr-4">
           <div className="flex flex-row justify-between">
@@ -157,17 +54,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="sticky bottom-0 w-full py-4 bg-white border-t-gray-300 border-t-[1px] border-solid">
-        <div className="flex flex-row mx-4 justify-between">
-          <div>
-            <p className="text-lg font-bold">월세 1,000/45</p>
-            <p className="text-sm text-neutral-500">관리비 6만원</p>
-          </div>
-          <button className="btn btn-primary">
-            <span className="font-bold text-lg w-36">문의하기</span>
-          </button>
-        </div>
-      </div>
+      <Footer />
     </main>
   );
 }
